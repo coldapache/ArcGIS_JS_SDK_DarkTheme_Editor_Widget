@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Declare the language of the document as English -->
+
+<head>
+  <meta charset="utf-8"> <!-- Set the character encoding to UTF-8 for proper text display -->
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> <!-- Ensure the page is responsive on different devices -->
+  <title>Edit features with the Editor widget | Sample | ArcGIS Maps SDK for JavaScript 4.30</title> <!-- Title of the web page -->
+
+  <!-- Link to the dark theme stylesheet from the ArcGIS Maps SDK for JavaScript -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/dark/main.css" />
+  <!-- Load the ArcGIS Maps SDK for JavaScript -->
+  <script src="https://js.arcgis.com/4.30/"></script>
+
+  <style>
+    /* Set the padding and margin to zero and make the height and width 100% for html, body, and #viewDiv elements */
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    // Load necessary modules from the ArcGIS Maps SDK for JavaScript
+    require([
+        "esri/WebMap", // Module to create a WebMap
+        "esri/views/MapView", // Module to create a MapView
+        "esri/widgets/Editor" // Module to create an Editor widget
+      ], (
+        WebMap, MapView, Editor // Callback function to handle the loaded modules
+      ) => {
+
+        // Create a new WebMap instance using a specific webmap item from ArcGIS Online
+        const webmap = new WebMap({
+          portalItem: {
+            id: "d36a8d9999644b41acb33423bfc6b285" // ID of the webmap item
+          }
+        });
+
+        // Create a new MapView instance to display the webmap
+        const view = new MapView({
+          container: "viewDiv", // Reference to the HTML element where the map will be displayed
+          map: webmap // The WebMap instance to be displayed
+        });
+
+        // When the view is ready, create and add the Editor widget
+        view.when(() => {
+          const editor = new Editor({
+            view: view, // Reference to the MapView instance
+            theme: "dark" // Apply the dark theme to the Editor widget
+          });
+
+          // Add the Editor widget to the top-right corner of the view
+          view.ui.add(editor, "top-left");
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <!-- HTML element to hold the map view -->
+  <div id="viewDiv"></div>
+</body>
+
+</html>
